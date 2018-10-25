@@ -15,7 +15,7 @@ class User {
         Connection connection = SQLiteConnection.getConnection();
 
         try {
-            String sql = "CREATE TABLE IF NOT EXIST users("
+            String sql = "CREATE TABLE IF NOT EXISTS users("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + "user_name TEXT UNIQUE NOT NULL,"
                     + "password TEXT NOT NULL,"
@@ -32,7 +32,7 @@ class User {
         Connection connection = SQLiteConnection.getConnection();
 
         try {
-            String sql = "CREATE TABLE IF NOT EXIST user_permissions ("
+            String sql = "CREATE TABLE IF NOT EXISTS user_permissions ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + "user_id INTEGER REFERENCES users(id),"
                     + "permission_id INTEGER REFERENCES permissions(id)"
@@ -44,6 +44,10 @@ class User {
         }
     }
     static void createSuperUser() {
+
+
+
+
 
     }
 }
