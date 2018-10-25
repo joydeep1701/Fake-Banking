@@ -2,6 +2,10 @@ package io.joydeep.banker.core.user;
 
 import io.joydeep.banker.core.permissions.Permission;
 
+import javax.management.RuntimeErrorException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public abstract class User {
@@ -51,6 +55,21 @@ public abstract class User {
 
     public String getUserId() {
         return userId;
+    }
+
+    public static String passwordHash(String password) {
+        try {
+            // Get an instance of the sha256 message digest algorithm
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            // Get the bytes
+            byte[] messageDigest = md.digest(password.getBytes());
+            // get the corresponding BigInt
+            BigInteger no = new BigInteger(1, messageDigest);
+            // return as string
+            return no.toString();
+        } catch (NoSuchAlgorithmException e) {
+            return password;
+        }
     }
 }
 
