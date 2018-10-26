@@ -2,7 +2,6 @@ package io.joydeep.banker.core.setup;
 
 import io.joydeep.banker.core.database.SQLiteConnection;
 import io.joydeep.banker.core.permissions.Permission;
-import io.joydeep.banker.core.permissions.PermissionClassList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,15 +33,15 @@ class Permissions {
             logger.info("Permissions Table Created");
 
             /* Create the permissions */
-            for (Permission p: PermissionClassList.permissionsList) {
-                logger.info("CREATING PERMISSION {}", p.permissionName());
+            for (Permission p: io.joydeep.banker.core.permissions.Permissions.permissionsList) {
+                logger.info("CREATING PERMISSION {}", p.getPermissionName());
 
                 sql = "INSERT INTO permissions(permission_name, permission_level) VALUES(?,?)";
                 // Prepared statement allows to dynamically inject values into the sql query
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 // SQL injection proof
-                preparedStatement.setString(1, p.permissionName());
-                preparedStatement.setInt(2, p.permissionLevel());
+                preparedStatement.setString(1, p.getPermissionName());
+                preparedStatement.setInt(2, p.getPermissionLevel());
                 preparedStatement.execute();
             }
         } catch(SQLException e) {
